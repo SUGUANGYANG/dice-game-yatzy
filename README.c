@@ -1,5 +1,5 @@
-# dice-game-yatzy
-C언어로 구현한 주사위 5개를 굴려 족보로 점수를 매기는 콘솔 게임
+// dice-game-yatzy
+// C언어로 구현한 주사위 5개를 굴려 족보로 점수를 매기는 콘솔 게임
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -19,20 +19,19 @@ void sortDice(int dice[], int n)
     }
 }
 
-// 스트레이트(4개 이상 연속) 판별
+// 스트레이트(1-5 또는 2-6) 판별
 int isStraight(int dice[])
 {
-    int cnt=1;
-    for(int i=0;i<4;i++)
+    int smallStraight = 1;
+    int largeStraight = 1;
+
+    for(int i=0;i<5;i++)
     {
-        if(dice[i+1] - dice[i]==1){
-            cnt++;
-            if(cnt>=4) return 1;
-        }else{
-            cnt=1;
-        }
+        if(dice[i] != i + 1) smallStraight = 0;
+        if(dice[i] != i + 2) largeStraight = 0;
     }
-    return 0;
+
+    return smallStraight || largeStraight;
 }
 
 // 족보에 따라 점수 계산
